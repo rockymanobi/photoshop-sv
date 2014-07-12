@@ -1,0 +1,21 @@
+.COMPONENT-PROGRESS{
+  position: fixed;
+  top: 0;
+  bottom:0;
+  left: 0;
+  right: 0;
+  min-height: 800px;
+  background-color: black;
+  opacity: 0.7;
+  display: none;
+}
+
+.COMPONENT-PROGRESS.ACTIVE{
+  display: block;
+}
+  .COMPONENT-PROGRESS .PROGRESS-IMAGE{
+    display: block;
+    opacity: 0.7;
+    margin: 40px auto;
+  }
+
