@@ -7,8 +7,6 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-
-    
 var ev = new EventEmitter();
 
 app.use(express.static(__dirname + '/public'));
@@ -20,6 +18,7 @@ var routes = {
   upload : require( __dirname + '/lib/routes/upload' )(ev,io)
 };
 
+/****** routing *****/
 app.get('/', function(req, res){
   res.sendfile('index.html');
 });
@@ -42,5 +41,9 @@ io.on('connection', function(socket){
 
 var port = Number(process.env.PORT || 3000);
 http.listen(port, function(){
-  console.log('listening on *:3000');
+
+  require('dns').lookup( require('os').hostname(), function( err, add, fam){
+    console.log( 'listening on ' + add + ':' + port );
+  });
+  
 });
