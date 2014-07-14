@@ -2,6 +2,8 @@ var express = require('express')
 var methodOverride = require('method-override');
 var busboy = require('connect-busboy');
 var EventEmitter = require('events').EventEmitter;
+var ECT = require('ect');
+var path = require('path');
 
 var app = express();
 var http = require('http').Server(app);
@@ -14,13 +16,19 @@ app.use(busboy());
 app.use(methodOverride());
 
 
+var ectRenderer = ECT({ watch: true, root: __dirname + '/lib/tpls', ext : '.html' });
+app.engine('html', ectRenderer.render);
+app.set('views', path.join(__dirname, 'lib', 'tpls'));
+app.set('view engine', 'html');
+
 var routes = {
   upload : require( __dirname + '/lib/routes/upload' )(ev,io)
 };
 
 /****** routing *****/
 app.get('/', function(req, res){
-  res.sendfile('index.html');
+//  res.sendfile('index.html');
+  res.render('index');
 });
 
 app.post('/upload', routes.upload.post );
