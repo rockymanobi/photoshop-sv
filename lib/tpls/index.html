@@ -1,17 +1,35 @@
 <% extend 'layout' %>
 <form method="POST" enctype="multipart/form-data" action="/upload">
 <fieldset>
+<!-- <legend>ファイルサイズとファイルを選択</legend> -->
 
-<legend>ファイルサイズとファイルを選択</legend>
-
-<label>max width or height
-<input name="max-length" type="number" >
+<label>
+	<span>写真をえらぶ</span>
+	<div class="inputfile_wrap">
+		<div class="bummybtn">＋</div>
+		<input name="image" type="file" >
+	</div>
 </label>
 
-<input name="image" type="file" >
+<label>
+	<span>横か縦の最大サイズは？</span>
+	<span class="select_wrap">
+		<select name="max-length" type="number">
+			<option value="100">100px</option>
+			<option value="300">300px</option>
+			<option value="600">600px</option>
+			<option value="800" selected>800px</option>
+		</select>
+	</span>
+</label>
+
+
 </fieldset>
 
-<input type="submit" value="go" class="upload-image-button">
+<div class="submit_wrap">
+	<button type="submit" value="go" class="upload-image-button"><i></i>Photoshopに送る</button>
+</div>
+
 </form>
 
 
