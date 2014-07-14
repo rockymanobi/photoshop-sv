@@ -27,8 +27,11 @@ var routes = {
 
 /****** routing *****/
 app.get('/', function(req, res){
-//  res.sendfile('index.html');
   res.render('index');
+});
+
+app.get('/upload_completed', function(req, res){
+  res.render('upload_completed');
 });
 
 app.post('/upload', routes.upload.post );
