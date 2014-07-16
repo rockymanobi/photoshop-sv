@@ -3,10 +3,10 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-#sample input{ display:block;  width: 100%; font-size: 18px; padding: 10px 10px;  }
-/*#sample [type=file]{ padding: 20px 10px;  }
-#sample [type=number]{ max-width: 200px;  }
-#sample [type=submit]{  
+#top input{ display:block;  width: 100%; font-size: 18px; padding: 10px 10px;  }
+/*#top [type=file]{ padding: 20px 10px;  }
+#top [type=number]{ max-width: 200px;  }
+#top [type=submit]{  
   display: block;
   box-sizing: border-box;
   font-size: 18px;
