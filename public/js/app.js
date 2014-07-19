@@ -1,5 +1,9 @@
 function showLoading(){
-  $('.COMPONENT-PROGRESS').addClass("ACTIVE");
+  var $loadingDiv = $('.COMPONENT-PROGRESS');
+  $loadingDiv.addClass("ACTIVE").promise();
+  setTimeout(function(){
+    $loadingDiv.addClass("VISIBLE");
+  },50);
 }
 
 $(document).ready( function(){
