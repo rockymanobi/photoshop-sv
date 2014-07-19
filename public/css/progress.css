@@ -22,7 +22,7 @@
 .COMPONENT-PROGRESS.VISIBLE{
   opacity: 1;
 }
-  /* $B%$%a!<%8$H$+$=$NJU$j$N@_Dj(B */
+  /* イメージとかその辺りの設定 */
   .COMPONENT-PROGRESS p{
     margin-top: 50px;
     display: block;
@@ -35,7 +35,7 @@
     margin: 80px auto;
   }
 
-  /* $B%"%K%a!<%7%g%s$N@_Dj(B */
+  /* アニメーションの設定 */
   .COMPONENT-PROGRESS .PROGRESS-IMAGE{
     -webkit-animation-name: spin;
     -webkit-animation-duration: 3000ms;
