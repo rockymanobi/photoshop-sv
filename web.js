@@ -13,8 +13,8 @@ var redis = require('socket.io-redis');
 
 
 var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-var redis2 = require("redis").createClient(rtg.port, rtg.hostname);
-var redis3 = require("redis").createClient(rtg.port, rtg.hostname);
+var redis2 = require("redis").createClient(rtg.port, rtg.hostname, {return_buffers: true});
+var redis3 = require("redis").createClient(rtg.port, rtg.hostname, {return_buffers: true});
 
 redis2.auth(rtg.auth.split(":")[1]);
 redis3.auth(rtg.auth.split(":")[1]);
