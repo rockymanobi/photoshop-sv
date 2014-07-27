@@ -12,10 +12,23 @@ var io = require('socket.io')(http);
 var redis = require('socket.io-redis');
 
 
-var redisHost = ( true )? 'redis://redistogo:6f700421ae8c08792b422fa4ff002e20@hoki.redistogo.com' : 'localhost'; 
-var redisPort = ( true  )? 9119 : 6379; 
+var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+var redis2 = require("redis").createClient(rtg.port, rtg.hostname);
+var redis3 = require("redis").createClient(rtg.port, rtg.hostname);
 
-io.adapter(redis({ host: redisHost, port: redisPort }));
+redis2.auth(rtg.auth.split(":")[1]);
+redis3.auth(rtg.auth.split(":")[1]);
+
+//var redisApp = require("redis");
+//var socketpub = redisApp.createClient(6379, "127.0.0.1", {auth_pass: "my password", return_buffers: true});
+//var socketsub = redisApp.createClient(6379, "127.0.0.1", {auth_pass: "my password", return_buffers: true});
+
+
+//var env = process.env.NODE_ENV;
+var redisHost = ( false )? 'redistogo:6f700421ae8c08792b422fa4ff002e20@hoki.redistogo.com' : 'localhost'; 
+var redisPort = ( false  )? 9119 : 6379; 
+//io.adapter(redis({ host: redisHost, port: redisPort }));
+io.adapter(redis({pubClient: redis2, subClient: redis3})  );
 
 var ev = new EventEmitter();
 
