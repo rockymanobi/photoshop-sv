@@ -9,6 +9,14 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var redis = require('socket.io-redis');
+
+
+var redisHost = ( true )? 'redis://redistogo:6f700421ae8c08792b422fa4ff002e20@hoki.redistogo.com' : 'localhost'; 
+var redisPort = ( true  )? 9119 : 6379; 
+
+io.adapter(redis({ host: redisHost, port: redisPort }));
+
 var ev = new EventEmitter();
 
 app.use(express.static(__dirname + '/public'));

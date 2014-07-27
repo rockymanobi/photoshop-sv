@@ -13,6 +13,8 @@
     "socket.io" : "latest",
     "method-override": "~1.0.0",
     "connect-busboy": "latest",
-    "ect": "latest"
+    "ect": "latest",
+    "redis": "latest",
+    "socket.io-redis": "latest"
   }
 }
