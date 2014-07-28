@@ -9,26 +9,40 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var redis = require('socket.io-redis');
 
 
-var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-var redis2 = require("redis").createClient(rtg.port, rtg.hostname, {return_buffers: true});
-var redis3 = require("redis").createClient(rtg.port, rtg.hostname, {return_buffers: true});
+////////// redis experiment ////////////
+///////// START START START ////////////
 
-redis2.auth(rtg.auth.split(":")[1]);
-redis3.auth(rtg.auth.split(":")[1]);
+/* 環境変数WITHOUT_REDIS=YESの場合はRedisを使わない */
+/* REDIS_TO_GOURLが存在する場合はRedis to go へ接続 */
+/* REDIS_TO_GOURLが存在しない場合はlocalhost:6379へ接続 */
+if( process.env.WITHOUT_REDIS !== "YES" ){
+  var redis = require('socket.io-redis');
 
-//var redisApp = require("redis");
-//var socketpub = redisApp.createClient(6379, "127.0.0.1", {auth_pass: "my password", return_buffers: true});
-//var socketsub = redisApp.createClient(6379, "127.0.0.1", {auth_pass: "my password", return_buffers: true});
+  if( process.env.REDISTOGO_URL ){
+    // on HEROKU
+    var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+    var pubRedisClient = require("redis").createClient(rtg.port, rtg.hostname, {return_buffers: true});
+    var subRedisClient = require("redis").createClient(rtg.port, rtg.hostname, {return_buffers: true});
+
+    pubRedisClient.auth(rtg.auth.split(":")[1]);
+    subRedisClient.auth(rtg.auth.split(":")[1]);
+
+    io.adapter(redis({pubClient: pubRedisClient, subClient: subRedisClient })  );
+
+  }else{
+    // on LOCAL HOST REDIS
+    var redisHost = 'localhost'; 
+    var redisPort = 6379; 
+    io.adapter(redis({ host: redisHost, port: redisPort }));
+  }
+
+}
+////////// redis experiment ////////////
+//////////// END END END ///////////////
 
 
-//var env = process.env.NODE_ENV;
-var redisHost = ( false )? 'redistogo:6f700421ae8c08792b422fa4ff002e20@hoki.redistogo.com' : 'localhost'; 
-var redisPort = ( false  )? 9119 : 6379; 
-//io.adapter(redis({ host: redisHost, port: redisPort }));
-io.adapter(redis({pubClient: redis2, subClient: redis3})  );
 
 var ev = new EventEmitter();
 
