@@ -57,8 +57,10 @@ app.set('views', path.join(__dirname, 'lib', 'tpls'));
 app.set('view engine', 'html');
 
 var routes = {
-  upload : require( __dirname + '/lib/routes/upload' )(ev,io)
+  upload : require( __dirname + '/lib/routes/upload' )(ev,io),
+  upload2 : require( __dirname + '/lib/routes/upload2' )(ev,io)
 };
+
 
 /****** routing *****/
 app.get('/', function(req, res){
@@ -70,6 +72,7 @@ app.get('/upload_completed', function(req, res){
 });
 
 app.post('/upload', routes.upload.post );
+app.post('/upload2', routes.upload2.post );
 
 
 /****** io ******/
