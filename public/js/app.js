@@ -17,8 +17,20 @@ function reflectImage(targetSelector, file){
 }
 
 $(document).ready( function(){
-  $('.upload-image-button').on('click',function(){
+  $('.upload-image-button').on('click',function(e){
+    e.preventDefault();
     showLoading();
+    
+    $('#inputfile').remove;  
+    
+    
+    $('#image-upload-form').submit();
+
+
+
+
+
+
   });
   // 写真をとったら画面に反映
   $('input[name=image]').on('change', function () {
@@ -37,7 +49,16 @@ $(document).ready( function(){
       return; 
     }
 
-    // OKだったら反映
-    reflectImage( '.bummybtn', file );
+    var image = document.getElementById('js-preview-photo');
+    var mpImg = new MegaPixImage(file);
+    mpImg.render(image, {maxWidth: 600, maxHeight: 600});
+    image.onload = function(){
+      var image64El = document.getElementById('image64');
+      image64El.value = image.src;
+      $('.bummybtn').css("background-image", "url("+ image.src +")");
+
+    };
+
+
   });
 });
