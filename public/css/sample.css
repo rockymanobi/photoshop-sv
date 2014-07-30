@@ -17,6 +17,10 @@
   margin: 20px 0px;
 }*/
 
+.hide{
+  display: none !important;
+}
+
 fieldset{
   width: 100%;
   margin: 0px;

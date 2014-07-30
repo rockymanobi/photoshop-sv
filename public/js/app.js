@@ -6,17 +6,12 @@ function showLoading(){
   },50);
 }
 
-function reflectImage(targetSelector, file){
-
-  console.log(123);
-  var fileReader = new FileReader();
-  fileReader.onload = function(event) {
-    return $(targetSelector).css("background-image", "url("+ event.target.result +")");
-  };
-  return fileReader.readAsDataURL(file);
-}
 
 $(document).ready( function(){
+
+  // アップロードボタンは消しておく
+  $('.submit_wrap').addClass('hide');
+
   $('.upload-image-button').on('click',function(e){
     e.preventDefault();
     showLoading();
@@ -26,16 +21,14 @@ $(document).ready( function(){
     
     $('#image-upload-form').submit();
 
-
-
-
-
-
   });
+
   // 写真をとったら画面に反映
   $('input[name=image]').on('change', function () {
 
-    console.log(this);
+    $('.submit_wrap').addClass('hide');
+    $('.bummybtn').css("background-image", "none");
+
     if (!this.files.length) {
       return;
     }
@@ -45,9 +38,11 @@ $(document).ready( function(){
     var fileSizeMB = file.size / 1024 / 1024;
     if ( fileSizeMB <= 3 ) { 
     }else{
-      alert( "デカい！");
+      alert( "画像がサイズが大きすぎます！");
       return; 
     }
+
+    $('.submit_wrap').removeClass('hide');
 
     var image = document.getElementById('js-preview-photo');
     var mpImg = new MegaPixImage(file);
